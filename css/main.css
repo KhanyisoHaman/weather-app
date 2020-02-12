@@ -1,0 +1,18 @@
+section {
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    grid-gap: 10px;
+}
+
+article {
+    background-color: blue;
+}
+
+.today {
+    grid-column: span 5;
+    background-color: blueviolet;
+}
+
+.other-day {
+    text-align: center;;
+}

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Train - fetch element</title>
+</head>
+<body>
+    <!-- // We are gonna add an image using API -->
+
+    <!-- Obito -->
+    <img src="" id="obito" width="450"  height="300">
+    <!-- Sasuke -->
+    <img src="" id="sasuke" width="450"  height="300">
+    <!-- High School of the Dead -->
+    <img src="" id="hsd" width="450"  height="300">
+    <!-- Akame -->
+    <img src="" id="akame" width="450"  height="300">
+
+    <br>
+
+    <p id="word"></p>
+
+    <script>
+        console.log("about to add image");
+
+        textWord().then(word => {
+            document.getElementById('word').innerText = word;
+        })
+        
+        catchObito();
+
+        catchSasuke();
+
+        catchAkame();
+
+        catchHighSchool();
+
+        // Text
+        async function textWord(){
+            const response = await fetch('word.txt');
+            return await response.text();
+        }
+
+        // Obito
+        async function catchObito(){
+            const response = await fetch('/media/images/obito.jpg');
+            const blob = await response.blob();
+            document.getElementById('obito').src = URL.createObjectURL(blob)
+        }
+
+        // Sasuke
+        async function catchSasuke(){
+            const response = await fetch('/media/images/sasuke.jpg');
+            const blob = await response.blob();
+            document.getElementById('sasuke').src = URL.createObjectURL(blob)
+        }
+
+        // High School
+        async function catchHighSchool(){
+            const response = await fetch('/media/images/hsd.jpg');
+            const blob = await response.blob();
+            document.getElementById('hsd').src = URL.createObjectURL(blob)
+        }
+
+        // Akame
+        async function catchAkame(){
+            const response = await fetch('/media/images/akame.jpg');
+            const blob = await response.blob();
+            document.getElementById('akame').src = URL.createObjectURL(blob)
+        }
+
+
+
+
+        /*
+        Long way
+        console.log("about to add image");
+        // fetch the image from folder
+        // then. handles the response
+        fetch('obito.jpg').then(response => {
+            console.log(response);
+            return response.blob();
+        }).then(blob => {
+            console.log(blob);
+            // we make the output
+            document.getElementById('obito').src = URL.createObjectURL(blob);
+        })
+        */
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <!-- Link my extenal css -->
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    
+    <h1 id="h1-header">Weather App</h1>
+
+    <!-- Grid Box to align all the content -->
+    <section id="grid-box">
+        <!-- Today data -->
+        <article class="today item">
+            <h2 id="cityName"></h2>
+            <h3>Today</h3>
+            <p id="description"></p>
+            <p>Temperature: <span id="temp"></span> F</p>
+            <p>HI: <span id="max"></span>F</p>
+            <p>LOW: <span id="min"></span>F</p>
+            <p>Precrip: <span id="precrip"></span>%</p>
+            <p>Humidity: <span id="hum"></span>%</p>
+            <p>Wind: <span id="wind"></span>km NW</p>
+        </article>
+        <!-- Other days data -->
+
+        <!-- Tomorrow -->
+        <article class="other-day item">
+            <h4 id="tomorrow">Tomorrow</h4>
+            <p id="ttDescription"></p>
+            <p>Max/Min</p>
+            <p id="tempTT">
+                <span id="tempMinTT"></span>/ <span id="tempMaxTT"></span>
+            </p>
+        </article>
+
+        <!-- Wednesday -->
+        <article class="other-day item">
+            <h4 id="wednesday">Wednesday</h4>
+            <p id="wedDescription"></p>
+            <p>Max/Min</p>
+            <p id="tempWed">
+                <span id="tempMinWed"></span>/ <span id="tempMaxWed"></span>
+            </p>
+        </article>
+
+        <!-- Thursday -->
+        <article class="other-day item">
+            <h4 id="thursday">Thursday</h4>
+            <p id="thurDescription"></p>
+            <p>Max/Min</p>
+            <p id="tempThur">
+                <span id="tempMinThur"></span>/ <span id="tempMaxThur"></span>
+            </p>
+        </article>
+
+        <!-- Friday -->
+        <article class="other-day item">
+            <h4 id="friday">Friday</h4>
+            <p id="friDescription"></p>
+            <p>Max/Min</p>
+            <p id="tempFri">
+                <span id="tempMinFri"></span>/ <span id="tempMaxFri"></span>
+            </p>
+        </article>
+
+        <!-- Saturday -->
+        <article class="other-day item">
+            <h4 id="saturday">Saturday</h4>
+            <p id="satDescription"></p>
+            <p>Max/Min</p>
+            <p id="tempSat">
+                <span id="tempMinSat"></span>/ <span id="tempMaxSat"></span>
+            </p>
+        </article>
+    </section>
+
+
+    <script>
+
+        // First get the json file
+        const api_url = 'data/weather.json';
+
+        // Make a function and ftech the data in the json file
+        async function getWeather() {
+            // fetch data
+            const response = await fetch(api_url);
+            // convert it to json
+            const data = await response.json();
+            // check it on chrome
+            console.log(data);
+            console.log("Here is the data of the city");
+            console.log(data.city.name);
+        }
+
+        getWeather();
+
+        // ----------------------------------------------
+
+        // Get weather for today 27/01/2020
+
+        async function getCapeTownToday() {
+            const response = await fetch(api_url);
+            const data = await response.json();
+            // Posted the temp by locating it
+            // Today's data
+            let data_weatherToday = data.list['0'];
+            // Today's temp
+            let cityName = data.city.name;
+            let temp = data.list['0'].main.temp;
+            let tempMax = data.list['0'].main.temp_max;
+            let tempMin = data.list['0'].main.temp_min;
+            let date = data.list['0'].dt_txt;
+            let precrip = data.list['0'].clouds.all;
+            let humidity = data.list['0'].main.humidity;
+            let wind = data.list['0'].wind.speed;
+            let weatherDescription = data.list['0'].weather['0'].description;
+
+            //Insert data on webpage
+            document.getElementById('cityName').textContent = cityName;
+            document.getElementById('description').textContent = weatherDescription;
+            document.getElementById('temp').textContent = temp;
+            document.getElementById('max').textContent = tempMax;
+            document.getElementById('min').textContent = tempMin;
+            document.getElementById('precrip').textContent = precrip;
+            document.getElementById('hum').textContent = humidity;
+            document.getElementById('wind').textContent = wind;
+
+
+            //Data on the console Today
+            console.log(data_weatherToday);
+            // 
+            console.log("Hy I am about to post the temp");
+            console.log(cityName);
+            console.log(date);
+            console.log(weatherDescription);
+            console.log("Temperature: " + temp+ "F");
+            console.log('Temperature Min: ' + tempMin + "F" + " Temperature Max: " + tempMax + "F");
+            console.log("Precrip: " + precrip + "%");
+            console.log("Humidity: " + humidity + "%");
+            console.log("Wind: " + wind + 'km' + " NW");
+
+            //Data for 28/01/2020 Tomorrow
+            let tomorrowDescription = data.list['2'].weather['0'].description;
+            let tempMaxTT = data.list['2'].main.temp_max;
+            let tempMinTT = data.list['2'].main.temp_min;
+
+            // Data on console 28/01
+            console.log("Tomorrow - 28/01/2020");
+            console.log(tomorrowDescription);
+            console.log('Temperature Max: ' + tempMaxTT );
+            console.log('Temperature Min: ' + tempMinTT );
+
+            // Insert data in webpage
+            document.getElementById('ttDescription').textContent = tomorrowDescription;
+            document.getElementById('tempMaxTT').textContent = tempMaxTT;
+            document.getElementById('tempMinTT').textContent = tempMinTT;
+
+// -----------------------------------------------------------
+
+            // Data for 29/01/2020
+            let wedDescription = data.list['9'].weather['0'].description;
+            let tempMaxWed = data.list['9'].main.temp_max;
+            let tempMinWed = data.list['9'].main.temp_min;
+
+            // Data on console 29/01
+            console.log("Wednesday - 29/01/2020");
+            console.log(wedDescription);
+            console.log('Temperature Max: ' + tempMaxWed );
+            console.log('Temperature Min: ' + tempMinWed );
+
+            // Insert data in webpage
+            document.getElementById('wedDescription').textContent = weatherDescription;
+            document.getElementById('tempMaxWed').textContent = tempMaxWed;
+            document.getElementById('tempMinWed').textContent = tempMinWed;
+
+// -----------------------------------------------------------
+
+            // Data for 30/01/2020
+            let thurDescription = data.list['18'].weather['0'].description;
+            let tempMaxThur = data.list['18'].main.temp_max;
+            let tempMinThur = data.list['18'].main.temp_min;
+
+            // Data on console 30/01
+            console.log("Thursday - 30/01/2020");
+            console.log(thurDescription);
+            console.log('Temperature Max: ' + tempMaxThur );
+            console.log('Temperature Min: ' + tempMinThur); 
+
+            // Insert data in webpage
+            document.getElementById('thurDescription').textContent = thurDescription;
+            document.getElementById('tempMaxThur').textContent = tempMaxThur;
+            document.getElementById('tempMinThur').textContent = tempMinThur;
+
+// -----------------------------------------------------------
+            // Data for 31/01/2020
+            let friDescription = data.list['26'].weather['0'].description;
+            let tempMaxFri = data.list['26'].main.temp_max;
+            let tempMinFri = data.list['26'].main.temp_min;
+
+            // Data on console 31/01
+            console.log("Friday - 31/01/2020");
+            console.log(friDescription);
+            console.log('Temperature Max: ' + tempMaxFri );
+            console.log('Temperature Min: ' + tempMinFri); 
+
+            // Insert data in webpage
+            document.getElementById('friDescription').textContent = friDescription;
+            document.getElementById('tempMaxFri').textContent = tempMaxFri;
+            document.getElementById('tempMinFri').textContent = tempMinFri;
+            
+
+
+// -----------------------------------------------------------
+            // Data for 01/02/2020
+            let satDescription = data.list['34'].weather['0'].description;
+            let tempMaxSat = data.list['34'].main.temp_max;
+            let tempMinSat = data.list['34'].main.temp_min;
+
+            // Data on console 01/02
+            console.log("Saturday - 01/02/2020");
+            console.log(satDescription);
+            console.log('Temperature Max: ' + tempMaxSat );
+            console.log('Temperature Min: ' + tempMinSat); 
+
+            // Insert data in webpage
+            document.getElementById('satDescription').textContent = satDescription;
+            document.getElementById('tempMaxSat').textContent = tempMaxSat;
+            document.getElementById('tempMinSat').textContent = tempMinSat;
+    
+        }
+
+        getCapeTownToday();
+
+    </script>
+</body>
+</html>
